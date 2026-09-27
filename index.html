@@ -119,9 +119,6 @@
                             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                             <input type="text" id="search-input" oninput="renderRecipes()" placeholder="Rezepte oder Zutaten suchen..." 
                                    class="w-full pl-11 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30 focus:border-cooking transition-all">
-                            <button onclick="clearSearch()" id="clear-search-btn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
                         </div>
 
                         <div class="flex bg-gray-100/80 p-1.5 rounded-2xl gap-1 self-center w-full md:w-auto">
@@ -209,7 +206,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 shadow-soft border border-gray-100 flex gap-2">
-                    <input type="text" id="custom-shopping-input" placeholder="Eigene Zutat hinzufügen (z.B. 1 L Milch)..." onkeypress="if(event.key==='Enter') addCustomShoppingItem()" 
+                    <input type="text" id="custom-shopping-input" placeholder="Eigene Zutat hinzufügen..." onkeypress="if(event.key==='Enter') addCustomShoppingItem()" 
                            class="flex-grow px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/30">
                     <button onclick="addCustomShoppingItem()" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm rounded-xl shadow-sm transition-all">
                         <i class="fa-solid fa-plus"></i>
@@ -224,7 +221,6 @@
                             <i class="fa-solid fa-basket-shopping"></i>
                         </div>
                         <h3 class="text-md font-bold text-slateDark mb-1">Deine Einkaufsliste ist leer</h3>
-                        <p class="text-xs text-slateMuted max-w-xs mx-auto">Füge Zutaten direkt aus deinen Rezepten hinzu!</p>
                     </div>
                 </div>
             </div>
@@ -243,18 +239,11 @@
                     <div class="h-64 sm:h-80 md:h-96 w-full relative">
                         <img id="detail-image" src="" alt="Rezept Bild" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slateDark/80 via-slateDark/20 to-transparent"></div>
-                        
-                        <div class="absolute top-4 left-4 flex flex-wrap gap-2">
-                            <span id="detail-badge-type" class="px-3 py-1 rounded-full text-xs font-extrabold text-white shadow-md uppercase tracking-wider"></span>
-                            <span id="detail-badge-subcategory" class="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slateDark text-xs font-bold shadow-md"></span>
-                        </div>
 
                         <div class="absolute bottom-6 left-6 right-6 text-white">
                             <h1 id="detail-title" class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-2 drop-shadow-md"></h1>
                             <div class="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-semibold text-gray-200">
                                 <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-400"></i> <span id="detail-time">0 Min.</span></span>
-                                <span>•</span>
-                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-utensils text-amber-400"></i> <span id="detail-category-label">Kochen</span></span>
                             </div>
                         </div>
                     </div>
@@ -266,15 +255,14 @@
                             <div class="flex items-center justify-between pb-4 border-b border-gray-100">
                                 <div>
                                     <h3 class="font-bold text-slateDark text-base sm:text-lg">Zutaten</h3>
-                                    <p class="text-xs text-slateMuted">Mengen passen sich automatisch an</p>
                                 </div>
                                 
                                 <div class="flex items-center bg-gray-100 p-1 rounded-2xl border border-gray-200/60">
-                                    <button onclick="adjustServings(-1)" class="w-8 h-8 rounded-xl bg-white hover:bg-gray-50 text-slateDark font-bold flex items-center justify-center shadow-sm transition-all active:scale-95">
+                                    <button onclick="adjustServings(-1)" class="w-8 h-8 rounded-xl bg-white hover:bg-gray-50 text-slateDark font-bold flex items-center justify-center shadow-sm">
                                         <i class="fa-solid fa-minus text-xs"></i>
                                     </button>
                                     <span class="px-3 font-extrabold text-sm text-slateDark min-w-[3rem] text-center" id="detail-servings-count">4 Pers.</span>
-                                    <button onclick="adjustServings(1)" class="w-8 h-8 rounded-xl bg-white hover:bg-gray-50 text-slateDark font-bold flex items-center justify-center shadow-sm transition-all active:scale-95">
+                                    <button onclick="adjustServings(1)" class="w-8 h-8 rounded-xl bg-white hover:bg-gray-50 text-slateDark font-bold flex items-center justify-center shadow-sm">
                                         <i class="fa-solid fa-plus text-xs"></i>
                                     </button>
                                 </div>
@@ -286,48 +274,13 @@
                                 <i class="fa-solid fa-cart-plus text-amber-600"></i> Alle Zutaten auf die Einkaufsliste
                             </button>
                         </div>
-
-                        <!-- Timer Box -->
-                        <div class="bg-gradient-to-br from-slateDark to-slate-800 text-white rounded-3xl p-6 shadow-card space-y-4">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-stopwatch text-base"></i> Küchen-Timer
-                                </span>
-                                <span id="timer-display" class="font-mono text-2xl font-extrabold tracking-wider text-white">00:00</span>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <button onclick="setQuickTimer(5)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">5 Min</button>
-                                <button onclick="setQuickTimer(10)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">10 Min</button>
-                                <button onclick="setQuickTimer(15)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">15 Min</button>
-                                <button onclick="setQuickTimer(20)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">20 Min</button>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <button id="timer-toggle-btn" onclick="toggleTimer()" class="flex-grow py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs uppercase tracking-wider">
-                                    Timer Starten
-                                </button>
-                                <button onclick="resetTimer()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs">
-                                    <i class="fa-solid fa-rotate-right"></i>
-                                </button>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="lg:col-span-7 space-y-6">
                         <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-100 space-y-6">
-                            <div class="flex items-center justify-between pb-4 border-b border-gray-100">
-                                <h3 class="font-bold text-slateDark text-base sm:text-lg flex items-center gap-2">
-                                    <i class="fa-solid fa-list-check text-cooking"></i> Zubereitung
-                                </h3>
-                                
-                                <button id="wakelock-btn" onclick="toggleWakeLock()" class="px-3 py-1.5 rounded-xl bg-gray-100 text-slateMuted hover:text-slateDark text-xs font-bold transition-all flex items-center gap-1.5">
-                                    <i class="fa-solid fa-display"></i>
-                                    <span id="wakelock-text">Display an lassen: AUS</span>
-                                </button>
-                            </div>
-
+                            <h3 class="font-bold text-slateDark text-base sm:text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-cooking"></i> Zubereitung
+                            </h3>
                             <div id="detail-instructions-list" class="space-y-4"></div>
                         </div>
                     </div>
@@ -343,11 +296,11 @@
                     <i class="fa-solid fa-book-open text-lg"></i>
                     <span class="text-[10px] font-bold mt-1">Rezepte</span>
                 </button>
-                <button onclick="switchView('favorites')" id="mob-nav-favorites" class="flex flex-col items-center py-1 px-3 rounded-xl text-gray-400 hover:text-slateDark">
+                <button onclick="switchView('favorites')" id="mob-nav-favorites" class="flex flex-col items-center py-1 px-3 rounded-xl text-gray-400">
                     <i class="fa-solid fa-heart text-lg"></i>
                     <span class="text-[10px] font-bold mt-1">Favoriten</span>
                 </button>
-                <button onclick="switchView('shopping')" id="mob-nav-shopping" class="flex flex-col items-center py-1 px-3 rounded-xl text-gray-400 hover:text-slateDark">
+                <button onclick="switchView('shopping')" id="mob-nav-shopping" class="flex flex-col items-center py-1 px-3 rounded-xl text-gray-400">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                     <span class="text-[10px] font-bold mt-1">Einkauf</span>
                 </button>
@@ -373,22 +326,8 @@
             </div>
 
             <div class="p-6 overflow-y-auto space-y-6 flex-grow">
-                <div class="flex bg-gray-100 p-1 rounded-2xl gap-1" id="import-type-selector">
-                    <button type="button" onclick="setImportTab('manual')" id="tab-btn-manual" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slateDark shadow-sm">
-                        <i class="fa-solid fa-keyboard mr-1.5"></i>Manuell Einpflegen
-                    </button>
-                    <button type="button" onclick="setImportTab('smart')" id="tab-btn-smart" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-500 hover:text-slateDark">
-                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-amber-500"></i>Web / Text Parser
-                    </button>
-                    <button type="button" onclick="setImportTab('presets')" id="tab-btn-presets" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-500 hover:text-slateDark">
-                        <i class="fa-solid fa-cloud-arrow-down mr-1.5 text-cooking"></i>Web Vorschläge
-                    </button>
-                </div>
-
-                <!-- FORM 1: MANUAL -->
+                <!-- FORM -->
                 <form id="manual-recipe-form" onsubmit="saveRecipeFromForm(event)" class="space-y-4">
-                    <input type="hidden" id="form-recipe-id" value="">
-                    
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Rezept-Titel *</label>
@@ -398,7 +337,7 @@
 
                         <div>
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Hauptkategorie *</label>
-                            <select id="form-main-category" onchange="updateFormSubcategories()" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30">
+                            <select id="form-main-category" onchange="updateFormSubcategories()" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none">
                                 <option value="kochen">🍳 Kochen</option>
                                 <option value="backen">🧁 Backen</option>
                             </select>
@@ -406,70 +345,45 @@
 
                         <div>
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Unterkategorie *</label>
-                            <select id="form-subcategory" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30"></select>
+                            <select id="form-subcategory" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none"></select>
                         </div>
 
                         <div>
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Zubereitungszeit (Minuten) *</label>
                             <input type="number" id="form-time" required min="1" placeholder="30" 
-                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30">
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none">
                         </div>
 
                         <div>
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Portionen *</label>
                             <input type="number" id="form-servings" required min="1" value="4" 
-                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30">
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none">
                         </div>
 
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Bild-URL (Optional)</label>
                             <input type="url" id="form-image" placeholder="https://images.unsplash.com/..." 
-                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30">
+                                   class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none">
                         </div>
 
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Zutaten (Eine Zutat pro Zeile) *</label>
-                            <textarea id="form-ingredients" required rows="5" placeholder="400g Pasta&#10;2 Zehen Knoblauch&#10;100ml Olivenöl" 
-                                      class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30"></textarea>
+                            <textarea id="form-ingredients" required rows="4" placeholder="400g Pasta&#10;2 Zehen Knoblauch" 
+                                      class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none"></textarea>
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Anleitung / Schritte (Ein Schritt pro Zeile) *</label>
-                            <textarea id="form-instructions" required rows="5" placeholder="Schritt 1: Wasser zum Kochen bringen.&#10;Schritt 2: Nudeln 10 Minuten garen." 
-                                      class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30"></textarea>
+                            <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Anleitung (Ein Schritt pro Zeile) *</label>
+                            <textarea id="form-instructions" required rows="4" placeholder="Schritt 1: Wasser kochen.&#10;Schritt 2: Nudeln garen." 
+                                      class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none"></textarea>
                         </div>
                     </div>
 
                     <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
-                        <button type="button" onclick="closeImportModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-slateDark font-bold text-sm hover:bg-gray-50">Abbrechen</button>
-                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-cooking hover:bg-cookingHover text-white font-bold text-sm shadow-md transition-all">Rezept Speichern</button>
+                        <button type="button" onclick="closeImportModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-slateDark font-bold text-sm">Abbrechen</button>
+                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-cooking hover:bg-cookingHover text-white font-bold text-sm shadow-md">Rezept Speichern</button>
                     </div>
                 </form>
-
-                <!-- FORM 2: SMART PARSER -->
-                <div id="smart-import-container" class="hidden space-y-4">
-                    <div class="bg-amber-50 border border-amber-200/60 rounded-2xl p-4 text-xs text-amber-900 flex items-start gap-3">
-                        <i class="fa-solid fa-wand-magic-sparkles text-amber-600 text-lg mt-0.5"></i>
-                        <div>
-                            <span class="font-bold block mb-0.5">Smart Recipe Parser</span>
-                            Füge den kompletten Text von einer Rezept-Website ein.
-                        </div>
-                    </div>
-
-                    <textarea id="smart-import-text" rows="8" placeholder="Füge hier den Rezept-Text ein..." 
-                              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/30"></textarea>
-
-                    <button onclick="parseSmartText()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold text-sm rounded-xl shadow-md hover:brightness-105 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Rezept jetzt automatisch analysieren</span>
-                    </button>
-                </div>
-
-                <!-- FORM 3: PRESETS -->
-                <div id="preset-import-container" class="hidden space-y-4">
-                    <div id="preset-recipes-list" class="space-y-3"></div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -494,31 +408,6 @@
                 isFavorite: true,
                 ingredients: ['400g Penne oder Tagliatelle', '200g getrocknete Tomaten', '3 Zehen Knoblauch', '200ml Schlagsahne', '100g Blattspinat', '60g Parmesan', '2 EL Olivenöl', 'Salz und Pfeffer'],
                 instructions: ['Pasta kochen.', 'Knoblauch & Tomaten anbraten.', 'Sahne & Spinat dazugeben.', 'Parmesan einrühren & verfeinern.']
-            },
-            {
-                id: 'rec-2',
-                title: 'Saftiger Schoko-Fudge Kuchen',
-                mainCategory: 'backen',
-                subcategory: 'Kuchen',
-                time: 50,
-                servings: 8,
-                image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
-                isFavorite: true,
-                ingredients: ['200g Zartbitterschokolade', '200g Butter', '200g Zucker', '4 Eier', '150g Mehl', '50g Kakao', '1 TL Backpulver'],
-                instructions: ['Schokolade & Butter schmelzen.', 'Eier & Zucker schaumig schlagen.', 'Mehl unterheben & bei 180°C 35 Min. backen.']
-            }
-        ];
-
-        const WEB_PRESETS = [
-            {
-                title: 'Klassische Beeren-Pancakes',
-                mainCategory: 'backen',
-                subcategory: 'Dessert & Süßes',
-                time: 20,
-                servings: 2,
-                image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80',
-                ingredients: ['200g Mehl', '1 Pck. Backpulver', '2 EL Zucker', '1 Ei', '200ml Milch', '150g Frische Beeren'],
-                instructions: ['Zutaten verrühren.', 'In Pfanne ausbacken und mit Beeren servieren.']
             }
         ];
 
@@ -534,11 +423,6 @@
         let selectedSubcategory = 'Alle';
         let currentRecipeDetail = null;
         let currentServingsScale = 4;
-        let wakeLock = null;
-
-        let timerInterval = null;
-        let timerSecondsLeft = 0;
-        let timerIsRunning = false;
 
         function initApp() {
             const savedRecipes = localStorage.getItem('gourmetchef_recipes');
@@ -559,18 +443,23 @@
             renderShoppingList();
             updateShoppingBadge();
             updateFormSubcategories();
-            renderPresetImports();
+        }
+
+        function triggerCloudSync() {
+            if (window.saveToCloud) {
+                window.saveToCloud(recipes, shoppingList);
+            }
         }
 
         function saveRecipesToStorage() {
             localStorage.setItem('gourmetchef_recipes', JSON.stringify(recipes));
-            if (window.saveToCloud) window.saveToCloud(recipes, shoppingList);
+            triggerCloudSync();
         }
 
         function saveShoppingToStorage() {
             localStorage.setItem('gourmetchef_shopping', JSON.stringify(shoppingList));
             updateShoppingBadge();
-            if (window.saveToCloud) window.saveToCloud(recipes, shoppingList);
+            triggerCloudSync();
         }
 
         function switchView(viewName, recipeId = null) {
@@ -636,7 +525,6 @@
         }
 
         function createRecipeCardHtml(r) {
-            const isCooking = r.mainCategory === 'kochen';
             return `
                 <div onclick="switchView('detail', '${r.id}')" class="group bg-white rounded-3xl overflow-hidden shadow-soft border border-gray-100 hover:shadow-card transition-all cursor-pointer flex flex-col h-full">
                     <div class="relative h-48 w-full overflow-hidden bg-gray-100">
@@ -704,24 +592,12 @@
         function renderScaledIngredients() {
             if (!currentRecipeDetail) return;
             const container = document.getElementById('detail-ingredients-list');
-            const ratio = currentServingsScale / currentRecipeDetail.servings;
-
-            container.innerHTML = currentRecipeDetail.ingredients.map(ing => {
-                const scaled = scaleIngredientText(ing, ratio);
-                return `<label class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 cursor-pointer">
+            container.innerHTML = currentRecipeDetail.ingredients.map(ing => `
+                <label class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 cursor-pointer">
                     <input type="checkbox" class="h-4 w-4 rounded text-cooking">
-                    <span class="text-sm font-medium text-slateDark">${scaled}</span>
-                </label>`;
-            }).join('');
-        }
-
-        function scaleIngredientText(text, ratio) {
-            return text.replace(/(\d+[\.,]?\d*)/g, (match) => {
-                const num = parseFloat(match.replace(',', '.'));
-                if (isNaN(num)) return match;
-                const scaled = num * ratio;
-                return Number.isInteger(scaled) ? scaled : scaled.toFixed(1).replace('.', ',');
-            });
+                    <span class="text-sm font-medium text-slateDark">${ing}</span>
+                </label>
+            `).join('');
         }
 
         function renderInstructions() {
@@ -737,11 +613,10 @@
 
         function addRecipeToShoppingList() {
             if (!currentRecipeDetail) return;
-            const ratio = currentServingsScale / currentRecipeDetail.servings;
             currentRecipeDetail.ingredients.forEach(ing => {
                 shoppingList.push({
                     id: 'shop-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
-                    text: scaleIngredientText(ing, ratio),
+                    text: ing,
                     recipeTitle: currentRecipeDetail.title,
                     checked: false
                 });
@@ -753,7 +628,7 @@
         function addCustomShoppingItem() {
             const input = document.getElementById('custom-shopping-input');
             if (!input.value.trim()) return;
-            shoppingList.push({ id: 'shop-' + Date.now(), text: input.value.trim(), recipeTitle: 'Eigene Zutat', checked: false });
+            shoppingList.push({ id: 'shop-' + Date.now(), text: input.value.trim(), checked: false });
             input.value = '';
             saveShoppingToStorage();
             renderShoppingList();
@@ -797,39 +672,8 @@
             badge.classList.toggle('hidden', count === 0);
         }
 
-        function setQuickTimer(min) { timerSecondsLeft = min * 60; updateTimerDisplay(); }
-        function toggleTimer() {
-            if (timerIsRunning) { clearInterval(timerInterval); timerIsRunning = false; }
-            else {
-                if (timerSecondsLeft <= 0) timerSecondsLeft = 600;
-                timerIsRunning = true;
-                timerInterval = setInterval(() => {
-                    if (timerSecondsLeft > 0) { timerSecondsLeft--; updateTimerDisplay(); }
-                    else { clearInterval(timerInterval); timerIsRunning = false; alert('⏰ Küchen-Timer abgelaufen!'); }
-                }, 1000);
-            }
-        }
-        function resetTimer() { clearInterval(timerInterval); timerIsRunning = false; timerSecondsLeft = 0; updateTimerDisplay(); }
-        function updateTimerDisplay() {
-            const m = Math.floor(timerSecondsLeft / 60), s = timerSecondsLeft % 60;
-            document.getElementById('timer-display').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-        }
-
-        async function toggleWakeLock() {
-            if (!wakeLock && 'wakeLock' in navigator) {
-                try { wakeLock = await navigator.wakeLock.request('screen'); showToast('Display bleibt an 💡'); } catch(e){}
-            } else if (wakeLock) {
-                wakeLock.release().then(() => { wakeLock = null; showToast('Normaler Timeout'); });
-            }
-        }
-
         function openImportModal() { document.getElementById('recipe-modal').classList.remove('hidden'); }
         function closeImportModal() { document.getElementById('recipe-modal').classList.add('hidden'); }
-        function setImportTab(tab) {
-            document.getElementById('manual-recipe-form').classList.toggle('hidden', tab !== 'manual');
-            document.getElementById('smart-import-container').classList.toggle('hidden', tab !== 'smart');
-            document.getElementById('preset-import-container').classList.toggle('hidden', tab !== 'presets');
-        }
 
         function updateFormSubcategories() {
             const mainCat = document.getElementById('form-main-category').value;
@@ -866,43 +710,6 @@
                 switchView('recipes');
                 renderRecipes();
             }
-        }
-
-        function parseSmartText() {
-            const text = document.getElementById('smart-import-text').value.trim();
-            if (!text) return;
-            const lines = text.split('\n').filter(Boolean);
-            const newRecipe = {
-                id: 'rec-' + Date.now(),
-                title: lines[0] || 'Importiertes Rezept',
-                mainCategory: 'kochen',
-                subcategory: 'Hauptspeise',
-                time: 30,
-                servings: 4,
-                image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80',
-                ingredients: lines.slice(1, 5),
-                instructions: lines.slice(5)
-            };
-            recipes.unshift(newRecipe);
-            saveRecipesToStorage();
-            closeImportModal();
-            renderRecipes();
-        }
-
-        function renderPresetImports() {
-            document.getElementById('preset-recipes-list').innerHTML = WEB_PRESETS.map((p, idx) => `
-                <div class="flex items-center justify-between p-3 rounded-2xl bg-gray-50">
-                    <span class="font-bold text-sm text-slateDark">${p.title}</span>
-                    <button onclick="importPresetRecipe(${idx})" class="px-3 py-1 bg-cooking text-white rounded-xl text-xs font-bold">Importieren</button>
-                </div>
-            `).join('');
-        }
-
-        function importPresetRecipe(index) {
-            recipes.unshift({ ...WEB_PRESETS[index], id: 'rec-' + Date.now() });
-            saveRecipesToStorage();
-            closeImportModal();
-            renderRecipes();
         }
 
         function showToast(msg) {
@@ -944,10 +751,17 @@
         } catch (e) { console.error("Cloud-Error:", e); }
       };
 
+      // Erstes automatisches Hochladen bestehender lokaler Rezepte beim Start
+      setTimeout(() => {
+        if (recipes.length > 0) {
+            window.saveToCloud(recipes, shoppingList);
+        }
+      }, 1500);
+
       onSnapshot(docRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.data();
-          if (data.recipes) {
+          if (data.recipes && data.recipes.length > 0) {
             recipes = data.recipes;
             localStorage.setItem('gourmetchef_recipes', JSON.stringify(recipes));
             if (activeView === 'recipes') renderRecipes();
