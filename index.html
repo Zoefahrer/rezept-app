@@ -45,7 +45,6 @@
             background-color: #F8F9FA;
             -webkit-tap-highlight-color: transparent;
         }
-        /* Hide scrollbars for clean UI where needed */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -53,7 +52,6 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        /* Custom checkbox style */
         .custom-checkbox:checked {
             background-color: #E05A47;
             border-color: #E05A47;
@@ -111,16 +109,12 @@
 
         <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-            <!-- ================= VIEW 1: RECIPE LIST & FILTER ================= -->
+            <!-- VIEW 1: RECIPE LIST & FILTER -->
             <div id="view-recipes" class="space-y-6">
                 
-                <!-- TOP BANNER & CATEGORY SWITCHER (Kochen vs Backen) -->
                 <div class="bg-white rounded-3xl p-4 sm:p-6 shadow-soft border border-gray-100/80">
-                    
-                    <!-- Search & Primary Mode Tabs -->
                     <div class="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
                         
-                        <!-- Search Bar -->
                         <div class="relative flex-grow max-w-md">
                             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                             <input type="text" id="search-input" oninput="renderRecipes()" placeholder="Rezepte oder Zutaten suchen..." 
@@ -130,7 +124,6 @@
                             </button>
                         </div>
 
-                        <!-- Main Mode Switcher: Alle / Kochen / Backen -->
                         <div class="flex bg-gray-100/80 p-1.5 rounded-2xl gap-1 self-center w-full md:w-auto">
                             <button onclick="setMainCategory('all')" id="mode-all" class="mode-tab flex-1 md:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm bg-white text-slateDark">
                                 <i class="fa-solid fa-utensils mr-1.5 text-gray-500"></i>Alle
@@ -144,20 +137,15 @@
                         </div>
                     </div>
 
-                    <!-- Subcategories Filter Chips -->
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" id="subcategory-chips">
-                        <!-- Dynamic Chips populated by JS -->
-                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" id="subcategory-chips"></div>
                 </div>
 
-                <!-- RECIPE GRID -->
                 <div class="flex items-center justify-between">
                     <h2 class="text-lg font-bold text-slateDark flex items-center gap-2" id="results-count-title">
                         <span>Entdecke Rezepte</span>
                         <span id="recipe-count-badge" class="bg-gray-200 text-slateDark text-xs px-2.5 py-0.5 rounded-full font-semibold">0</span>
                     </h2>
                     
-                    <!-- Quick Sort -->
                     <select id="sort-select" onchange="renderRecipes()" class="bg-transparent border-none text-xs sm:text-sm font-semibold text-slateMuted cursor-pointer focus:outline-none">
                         <option value="newest">Neueste zuerst</option>
                         <option value="time-asc">Zubereitungszeit (kürzeste)</option>
@@ -165,18 +153,14 @@
                     </select>
                 </div>
 
-                <!-- GRID CONTAINER -->
-                <div id="recipes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Cards rendered via JavaScript -->
-                </div>
+                <div id="recipes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-                <!-- Empty State -->
                 <div id="empty-state" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-dashed border-gray-200">
                     <div class="w-20 h-20 bg-orange-50 text-cooking rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                         <i class="fa-solid fa-cookie-bite"></i>
                     </div>
                     <h3 class="text-lg font-bold text-slateDark mb-1">Keine Rezepte gefunden</h3>
-                    <p class="text-sm text-slateMuted max-w-sm mx-auto mb-6">Passe deine Filter oder Suchbegriffe an, oder erstelle einfach ein neues leckeres Rezept!</p>
+                    <p class="text-sm text-slateMuted max-w-sm mx-auto mb-6">Passe deine Filter an oder füge ein neues Rezept hinzu!</p>
                     <button onclick="openImportModal()" class="px-5 py-2.5 bg-cooking text-white font-bold text-sm rounded-xl hover:bg-cookingHover shadow-md transition-all">
                         <i class="fa-solid fa-plus mr-2"></i>Neues Rezept hinzufügen
                     </button>
@@ -184,53 +168,46 @@
 
             </div>
 
-            <!-- ================= VIEW 2: FAVORITES ================= -->
+            <!-- VIEW 2: FAVORITES -->
             <div id="view-favorites" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-100 flex items-center justify-between">
                     <div>
                         <h1 class="text-2xl font-extrabold text-slateDark flex items-center gap-3">
-                            <i class="fa-solid fa-heart text-rose-500"></i>
-                            Meine Lieblingsrezepte
+                            <i class="fa-solid fa-heart text-rose-500"></i> Meine Lieblingsrezepte
                         </h1>
                         <p class="text-sm text-slateMuted mt-1">Deine persönlich gespeicherten Highlights auf einen Blick.</p>
                     </div>
                 </div>
 
-                <div id="favorites-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Favorite Cards -->
-                </div>
+                <div id="favorites-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
                 <div id="empty-favorites" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-dashed border-gray-200">
                     <div class="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                         <i class="fa-regular fa-heart"></i>
                     </div>
                     <h3 class="text-lg font-bold text-slateDark mb-1">Noch keine Favoriten</h3>
-                    <p class="text-sm text-slateMuted max-w-sm mx-auto mb-6">Klicke einfach auf das Herz-Symbol bei deinen Lieblingsrezepten, um sie hier zu speichern.</p>
+                    <p class="text-sm text-slateMuted max-w-sm mx-auto mb-6">Klicke einfach auf das Herz-Symbol bei deinen Lieblingsrezepten.</p>
                     <button onclick="switchView('recipes')" class="px-5 py-2.5 bg-slateDark text-white font-bold text-sm rounded-xl shadow-md">
                         Rezepte stöbern
                     </button>
                 </div>
             </div>
 
-            <!-- ================= VIEW 3: SHOPPING LIST ================= -->
+            <!-- VIEW 3: SHOPPING LIST -->
             <div id="view-shopping" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                         <h1 class="text-2xl font-extrabold text-slateDark flex items-center gap-3">
-                            <i class="fa-solid fa-cart-shopping text-amber-500"></i>
-                            Einkaufsliste
+                            <i class="fa-solid fa-cart-shopping text-amber-500"></i> Einkaufsliste
                         </h1>
                         <p class="text-sm text-slateMuted mt-1">Automatisch hinzugefügte Zutaten für deinen nächsten Einkauf.</p>
                     </div>
                     
-                    <div class="flex items-center gap-2">
-                        <button onclick="clearShoppingList()" class="px-4 py-2 bg-gray-100 hover:bg-rose-50 hover:text-rose-600 text-slateMuted font-bold text-xs sm:text-sm rounded-xl transition-all">
-                            <i class="fa-solid fa-trash-can mr-2"></i>Liste leeren
-                        </button>
-                    </div>
+                    <button onclick="clearShoppingList()" class="px-4 py-2 bg-gray-100 hover:bg-rose-50 hover:text-rose-600 text-slateMuted font-bold text-xs sm:text-sm rounded-xl transition-all">
+                        <i class="fa-solid fa-trash-can mr-2"></i>Liste leeren
+                    </button>
                 </div>
 
-                <!-- Custom Add Item to Shopping List -->
                 <div class="bg-white rounded-2xl p-4 shadow-soft border border-gray-100 flex gap-2">
                     <input type="text" id="custom-shopping-input" placeholder="Eigene Zutat hinzufügen (z.B. 1 L Milch)..." onkeypress="if(event.key==='Enter') addCustomShoppingItem()" 
                            class="flex-grow px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/30">
@@ -239,11 +216,8 @@
                     </button>
                 </div>
 
-                <!-- Shopping List Items Container -->
                 <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-100">
-                    <div id="shopping-list-container" class="space-y-3">
-                        <!-- Shopping Items rendered via JS -->
-                    </div>
+                    <div id="shopping-list-container" class="space-y-3"></div>
 
                     <div id="empty-shopping" class="hidden text-center py-12 px-4">
                         <div class="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
@@ -255,43 +229,28 @@
                 </div>
             </div>
 
-            <!-- ================= VIEW 4: RECIPE DETAIL VIEW ================= -->
+            <!-- VIEW 4: RECIPE DETAIL VIEW -->
             <div id="view-detail" class="hidden space-y-6">
-                
-                <!-- Back Button & Quick Actions Header -->
                 <div class="flex items-center justify-between">
                     <button onclick="switchView('recipes')" class="px-4 py-2 rounded-xl bg-white border border-gray-200 text-slateDark text-xs sm:text-sm font-bold shadow-sm hover:bg-gray-50 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Zurück zur Übersicht</span>
+                        <i class="fa-solid fa-arrow-left"></i> Zurück zur Übersicht
                     </button>
 
-                    <div class="flex items-center gap-2" id="detail-actions">
-                        <!-- Dynamic action buttons (Fav, Edit, Delete, WakeLock) -->
-                    </div>
+                    <div class="flex items-center gap-2" id="detail-actions"></div>
                 </div>
 
-                <!-- Recipe Hero Image Card -->
                 <div class="relative rounded-3xl overflow-hidden bg-white shadow-card border border-gray-100">
                     <div class="h-64 sm:h-80 md:h-96 w-full relative">
                         <img id="detail-image" src="" alt="Rezept Bild" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slateDark/80 via-slateDark/20 to-transparent"></div>
                         
-                        <!-- Badges on Image -->
                         <div class="absolute top-4 left-4 flex flex-wrap gap-2">
-                            <span id="detail-badge-type" class="px-3 py-1 rounded-full text-xs font-extrabold text-white shadow-md uppercase tracking-wider">
-                                <!-- Kochen / Backen -->
-                            </span>
-                            <span id="detail-badge-subcategory" class="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slateDark text-xs font-bold shadow-md">
-                                <!-- Subcategory -->
-                            </span>
+                            <span id="detail-badge-type" class="px-3 py-1 rounded-full text-xs font-extrabold text-white shadow-md uppercase tracking-wider"></span>
+                            <span id="detail-badge-subcategory" class="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slateDark text-xs font-bold shadow-md"></span>
                         </div>
 
-                        <!-- Title & Meta over Image -->
                         <div class="absolute bottom-6 left-6 right-6 text-white">
-                            <h1 id="detail-title" class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-2 drop-shadow-md">
-                                <!-- Recipe Title -->
-                            </h1>
-                            
+                            <h1 id="detail-title" class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-2 drop-shadow-md"></h1>
                             <div class="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-semibold text-gray-200">
                                 <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-400"></i> <span id="detail-time">0 Min.</span></span>
                                 <span>•</span>
@@ -301,14 +260,9 @@
                     </div>
                 </div>
 
-                <!-- Interactive Recipe Content Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    
-                    <!-- LEFT COLUMN: Ingredients & Servings (5 Cols) -->
                     <div class="lg:col-span-5 space-y-6">
                         <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-100 space-y-6">
-                            
-                            <!-- Portion Scaling Controller -->
                             <div class="flex items-center justify-between pb-4 border-b border-gray-100">
                                 <div>
                                     <h3 class="font-bold text-slateDark text-base sm:text-lg">Zutaten</h3>
@@ -326,19 +280,14 @@
                                 </div>
                             </div>
 
-                            <!-- Ingredients Checklist -->
-                            <div id="detail-ingredients-list" class="space-y-2.5">
-                                <!-- Ingredients Items -->
-                            </div>
+                            <div id="detail-ingredients-list" class="space-y-2.5"></div>
 
-                            <!-- Export to Shopping List Action Button -->
                             <button onclick="addRecipeToShoppingList()" class="w-full py-3 px-4 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-amber-200/60 transition-all">
-                                <i class="fa-solid fa-cart-plus text-amber-600"></i>
-                                <span>Alle Zutaten auf die Einkaufsliste</span>
+                                <i class="fa-solid fa-cart-plus text-amber-600"></i> Alle Zutaten auf die Einkaufsliste
                             </button>
                         </div>
 
-                        <!-- Kitchen Timer Box -->
+                        <!-- Timer Box -->
                         <div class="bg-gradient-to-br from-slateDark to-slate-800 text-white rounded-3xl p-6 shadow-card space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
@@ -347,20 +296,18 @@
                                 <span id="timer-display" class="font-mono text-2xl font-extrabold tracking-wider text-white">00:00</span>
                             </div>
 
-                            <!-- Quick Preset Timer Buttons -->
                             <div class="flex gap-2">
-                                <button onclick="setQuickTimer(5)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10 transition-all">5 Min</button>
-                                <button onclick="setQuickTimer(10)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10 transition-all">10 Min</button>
-                                <button onclick="setQuickTimer(15)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10 transition-all">15 Min</button>
-                                <button onclick="setQuickTimer(20)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10 transition-all">20 Min</button>
+                                <button onclick="setQuickTimer(5)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">5 Min</button>
+                                <button onclick="setQuickTimer(10)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">10 Min</button>
+                                <button onclick="setQuickTimer(15)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">15 Min</button>
+                                <button onclick="setQuickTimer(20)" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/10">20 Min</button>
                             </div>
 
-                            <!-- Timer Controls -->
                             <div class="flex gap-2">
-                                <button id="timer-toggle-btn" onclick="toggleTimer()" class="flex-grow py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all">
+                                <button id="timer-toggle-btn" onclick="toggleTimer()" class="flex-grow py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs uppercase tracking-wider">
                                     Timer Starten
                                 </button>
-                                <button onclick="resetTimer()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all">
+                                <button onclick="resetTimer()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs">
                                     <i class="fa-solid fa-rotate-right"></i>
                                 </button>
                             </div>
@@ -368,37 +315,28 @@
 
                     </div>
 
-                    <!-- RIGHT COLUMN: Step-by-Step Instructions (7 Cols) -->
                     <div class="lg:col-span-7 space-y-6">
                         <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-100 space-y-6">
-                            
                             <div class="flex items-center justify-between pb-4 border-b border-gray-100">
                                 <h3 class="font-bold text-slateDark text-base sm:text-lg flex items-center gap-2">
                                     <i class="fa-solid fa-list-check text-cooking"></i> Zubereitung
                                 </h3>
                                 
-                                <!-- Screen Wake Lock Toggle -->
                                 <button id="wakelock-btn" onclick="toggleWakeLock()" class="px-3 py-1.5 rounded-xl bg-gray-100 text-slateMuted hover:text-slateDark text-xs font-bold transition-all flex items-center gap-1.5">
                                     <i class="fa-solid fa-display"></i>
                                     <span id="wakelock-text">Display an lassen: AUS</span>
                                 </button>
                             </div>
 
-                            <!-- Steps Container -->
-                            <div id="detail-instructions-list" class="space-y-4">
-                                <!-- Steps rendered via JS -->
-                            </div>
-
+                            <div id="detail-instructions-list" class="space-y-4"></div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
         </main>
 
-        <!-- MOBILE BOTTOM NAV BAR -->
+        <!-- MOBILE BOTTOM NAV -->
         <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-40 py-2 px-4 shadow-lg">
             <div class="flex justify-around items-center">
                 <button onclick="switchView('recipes')" id="mob-nav-recipes" class="flex flex-col items-center py-1 px-3 rounded-xl text-cooking">
@@ -409,7 +347,7 @@
                     <i class="fa-solid fa-heart text-lg"></i>
                     <span class="text-[10px] font-bold mt-1">Favoriten</span>
                 </button>
-                <button onclick="switchView('shopping')" id="mob-nav-shopping" class="flex flex-col items-center py-1 px-3 rounded-xl text-gray-400 hover:text-slateDark relative">
+                <button onclick="switchView('shopping')" id="mob-nav-shopping" class="flex flex-col items-center py-1 px-3 rounded-xl text-gray-400 hover:text-slateDark">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                     <span class="text-[10px] font-bold mt-1">Einkauf</span>
                 </button>
@@ -418,11 +356,10 @@
 
     </div>
 
-    <!-- ================= MODAL: ADD / IMPORT / EDIT RECIPE ================= -->
+    <!-- MODAL: ADD / EDIT RECIPE -->
     <div id="recipe-modal" class="hidden fixed inset-0 bg-slateDark/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-elevated border border-gray-100 overflow-hidden my-auto transform transition-all">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-elevated border border-gray-100 overflow-hidden my-auto">
             
-            <!-- Modal Header -->
             <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-orange-100 text-cooking flex items-center justify-center font-bold">
@@ -430,28 +367,25 @@
                     </div>
                     <h3 id="modal-title" class="font-extrabold text-lg text-slateDark">Neues Rezept hinzufügen</h3>
                 </div>
-                <button onclick="closeImportModal()" class="w-8 h-8 rounded-full bg-gray-200/70 hover:bg-gray-300 text-slateDark flex items-center justify-center transition-all">
+                <button onclick="closeImportModal()" class="w-8 h-8 rounded-full bg-gray-200/70 hover:bg-gray-300 text-slateDark flex items-center justify-center">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
 
-            <!-- Modal Content / Tabs -->
             <div class="p-6 overflow-y-auto space-y-6 flex-grow">
-                
-                <!-- Import Method Tabs -->
                 <div class="flex bg-gray-100 p-1 rounded-2xl gap-1" id="import-type-selector">
-                    <button type="button" onclick="setImportTab('manual')" id="tab-btn-manual" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white text-slateDark shadow-sm">
+                    <button type="button" onclick="setImportTab('manual')" id="tab-btn-manual" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slateDark shadow-sm">
                         <i class="fa-solid fa-keyboard mr-1.5"></i>Manuell Einpflegen
                     </button>
-                    <button type="button" onclick="setImportTab('smart')" id="tab-btn-smart" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all text-gray-500 hover:text-slateDark">
+                    <button type="button" onclick="setImportTab('smart')" id="tab-btn-smart" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-500 hover:text-slateDark">
                         <i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-amber-500"></i>Web / Text Parser
                     </button>
-                    <button type="button" onclick="setImportTab('presets')" id="tab-btn-presets" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all text-gray-500 hover:text-slateDark">
+                    <button type="button" onclick="setImportTab('presets')" id="tab-btn-presets" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-500 hover:text-slateDark">
                         <i class="fa-solid fa-cloud-arrow-down mr-1.5 text-cooking"></i>Web Vorschläge
                     </button>
                 </div>
 
-                <!-- FORM 1: MANUAL RECIPE FORM -->
+                <!-- FORM 1: MANUAL -->
                 <form id="manual-recipe-form" onsubmit="saveRecipeFromForm(event)" class="space-y-4">
                     <input type="hidden" id="form-recipe-id" value="">
                     
@@ -472,9 +406,7 @@
 
                         <div>
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Unterkategorie *</label>
-                            <select id="form-subcategory" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30">
-                                <!-- Populated dynamically -->
-                            </select>
+                            <select id="form-subcategory" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30"></select>
                         </div>
 
                         <div>
@@ -499,7 +431,6 @@
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Zutaten (Eine Zutat pro Zeile) *</label>
                             <textarea id="form-ingredients" required rows="5" placeholder="400g Pasta&#10;2 Zehen Knoblauch&#10;100ml Olivenöl" 
                                       class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cooking/30"></textarea>
-                            <p class="text-[11px] text-slateMuted mt-1">Tipp: Setze Mengenangaben an den Anfang für den automatischen Portionsrechner (z.B. "200g Mehl").</p>
                         </div>
 
                         <div class="sm:col-span-2">
@@ -510,30 +441,23 @@
                     </div>
 
                     <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
-                        <button type="button" onclick="closeImportModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-slateDark font-bold text-sm hover:bg-gray-50">
-                            Abbrechen
-                        </button>
-                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-cooking hover:bg-cookingHover text-white font-bold text-sm shadow-md transition-all">
-                            Rezept Speichern
-                        </button>
+                        <button type="button" onclick="closeImportModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 text-slateDark font-bold text-sm hover:bg-gray-50">Abbrechen</button>
+                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-cooking hover:bg-cookingHover text-white font-bold text-sm shadow-md transition-all">Rezept Speichern</button>
                     </div>
                 </form>
 
-                <!-- FORM 2: SMART TEXT & URL PARSER -->
+                <!-- FORM 2: SMART PARSER -->
                 <div id="smart-import-container" class="hidden space-y-4">
                     <div class="bg-amber-50 border border-amber-200/60 rounded-2xl p-4 text-xs text-amber-900 flex items-start gap-3">
                         <i class="fa-solid fa-wand-magic-sparkles text-amber-600 text-lg mt-0.5"></i>
                         <div>
                             <span class="font-bold block mb-0.5">Smart Recipe Parser</span>
-                            Füge den kompletten Text von einer Rezept-Website oder einen Rezeptlink ein. Unser KI-Parser erkennt automatisch Zutaten, Zeiten und Anweisungen!
+                            Füge den kompletten Text von einer Rezept-Website ein.
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Rezept-URL oder Rezept-Text hier einfügen *</label>
-                        <textarea id="smart-import-text" rows="8" placeholder="Füge z.B. ein:&#10;Titel: Zitronenkuchen&#10;Kategorie: Backen&#10;Zeit: 45 Min&#10;Zutaten:&#10;250g Mehl&#10;150g Zucker&#10;Anleitung:&#10;1. Zutaten vermengen...&#10;2. Bei 180 Grad backen..." 
-                                  class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/30"></textarea>
-                    </div>
+                    <textarea id="smart-import-text" rows="8" placeholder="Füge hier den Rezept-Text ein..." 
+                              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/30"></textarea>
 
                     <button onclick="parseSmartText()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold text-sm rounded-xl shadow-md hover:brightness-105 transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -541,27 +465,23 @@
                     </button>
                 </div>
 
-                <!-- FORM 3: PRESET INTERNET DOWNLOADS -->
+                <!-- FORM 3: PRESETS -->
                 <div id="preset-import-container" class="hidden space-y-4">
-                    <p class="text-xs text-slateMuted">Wähle eines unserer beliebten Internet-Rezepte aus, um es direkt in deine Sammlung zu laden:</p>
-                    <div id="preset-recipes-list" class="space-y-3">
-                        <!-- Dynamic Presets Loaded via JS -->
-                    </div>
+                    <div id="preset-recipes-list" class="space-y-3"></div>
                 </div>
 
             </div>
-
         </div>
     </div>
 
-    <!-- Notification Toast -->
+    <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-20 md:bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slateDark text-white px-5 py-3 rounded-2xl shadow-elevated flex items-center gap-3 text-xs sm:text-sm font-bold border border-slate-700">
         <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <span id="toast-message">Aktion erfolgreich</span>
     </div>
 
+    <!-- MAIN APP SCRIPT -->
     <script>
-        // ================= APPLICATION STATE =================
         const DEFAULT_RECIPES = [
             {
                 id: 'rec-1',
@@ -572,24 +492,8 @@
                 servings: 4,
                 image: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281352?auto=format&fit=crop&w=800&q=80',
                 isFavorite: true,
-                ingredients: [
-                    '400g Penne oder Tagliatelle',
-                    '200g getrocknete Tomaten in Öl',
-                    '3 Zehen Knoblauch (gehackt)',
-                    '200ml Schlagsahne',
-                    '100g Blattspinat (frisch)',
-                    '60g Parmigiano Reggiano (gerieben)',
-                    '2 EL Olivenöl',
-                    'Salz und schwarzer Pfeffer'
-                ],
-                instructions: [
-                    'Die Pasta in reichlich kochendem Salzwasser nach Packungsanweisung al dente garen.',
-                    'In einer großen Pfanne Olivenöl erhitzen. Den gehackten Knoblauch und getrocknete Tomaten kurz anbraten.',
-                    'Mit der Sahne ablöschen und für 3 Minuten sanft köcheln lassen.',
-                    'Den frischen Blattspinat dazugeben, bis er zusammenfällt.',
-                    'Den geriebenen Parmesan einrühren und mit Salz und Pfeffer abschmecken.',
-                    'Die abgetropfte Pasta in die Sauce geben, vermengen und heiß servieren.'
-                ]
+                ingredients: ['400g Penne oder Tagliatelle', '200g getrocknete Tomaten', '3 Zehen Knoblauch', '200ml Schlagsahne', '100g Blattspinat', '60g Parmesan', '2 EL Olivenöl', 'Salz und Pfeffer'],
+                instructions: ['Pasta kochen.', 'Knoblauch & Tomaten anbraten.', 'Sahne & Spinat dazugeben.', 'Parmesan einrühren & verfeinern.']
             },
             {
                 id: 'rec-2',
@@ -600,77 +504,8 @@
                 servings: 8,
                 image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
                 isFavorite: true,
-                ingredients: [
-                    '200g Zartbitterschokolade (70%)',
-                    '200g Butter',
-                    '200g brauner Zucker',
-                    '4 Eier (Größe M)',
-                    '150g Weizenmehl (Type 405)',
-                    '50g Backkakao',
-                    '1 Prise Salz',
-                    '1 TL Backpulver'
-                ],
-                instructions: [
-                    'Den Backofen auf 180°C Ober-/Unterhitze vorheizen und eine Springform einfetten.',
-                    'Schokolade und Butter zusammen über einem heißen Wasserbad langsam schmelzen.',
-                    'Zucker und Eier in einer Schüssel schaumig schlagen, dann die geschmolzene Schoko-Butter-Mischung unterrühren.',
-                    'Mehl, Kakao, Backpulver und Salz sieben und vorsichtig unter den Teig heben.',
-                    'In die Form füllen und ca. 30-35 Minuten backen (innen soll er noch leicht fudi sein).',
-                    'Abkühlen lassen und vor dem Servieren mit Puderzucker bestreuen.'
-                ]
-            },
-            {
-                id: 'rec-3',
-                title: 'Knuspriges Dinkel-Körnerbrot',
-                mainCategory: 'backen',
-                subcategory: 'Brot & Brötchen',
-                time: 75,
-                servings: 10,
-                image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
-                isFavorite: false,
-                ingredients: [
-                    '500g Dinkelvollkornmehl',
-                    '1 Pck. Trockenhefe',
-                    '450ml lauwarmes Wasser',
-                    '100g Sonnenblumenkerne',
-                    '50g Leinsamen',
-                    '2 TL Salz',
-                    '2 EL Apfelessig'
-                ],
-                instructions: [
-                    'Alle trockenen Zutaten in einer Rührschüssel vermischen.',
-                    'Wasser und Apfelessig hinzufügen und mit den Knethaken zu einem weichen Teig verrühren.',
-                    'Den Teig ohne Gehzeit direkt in eine gefettete Kastenform geben.',
-                    'In den kalten Backofen stellen und bei 200°C Ober-/Unterhitze für ca. 60 Minuten backen.',
-                    'Das Brot nach dem Backen sofort aus der Form stürzen und auf einem Gitter auskühlen lassen.'
-                ]
-            },
-            {
-                id: 'rec-4',
-                title: 'Aromatisches Kokos-Chicken-Curry',
-                mainCategory: 'kochen',
-                subcategory: 'Schnell & Einfach',
-                time: 30,
-                servings: 4,
-                image: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80',
-                isFavorite: false,
-                ingredients: [
-                    '500g Hähnchenbrustfillet',
-                    '1 Dose Kokosmilch (400ml)',
-                    '2 EL Gelbe Currypaste',
-                    '1 Paprika (rot)',
-                    '200g Zuckerschoten',
-                    '1 Zwiebel',
-                    '200g Jasminreis'
-                ],
-                instructions: [
-                    'Jasminreis nach Packungsanleitung gar kochen.',
-                    'Hähnchenbrust in mundgerechte Stücke schneiden und in Pfanne goldbraun anbraten.',
-                    'Geschnittene Zwiebel und Paprika hinzufügen und 3 Minuten mitbraten.',
-                    'Currypaste einrühren, kurz anrösten und mit der Kokosmilch ablöschen.',
-                    'Zuckerschoten dazugeben und alles 8-10 Minuten bei mittlerer Hitze köcheln lassen.',
-                    'Mit duftendem Jasminreis servieren.'
-                ]
+                ingredients: ['200g Zartbitterschokolade', '200g Butter', '200g Zucker', '4 Eier', '150g Mehl', '50g Kakao', '1 TL Backpulver'],
+                instructions: ['Schokolade & Butter schmelzen.', 'Eier & Zucker schaumig schlagen.', 'Mehl unterheben & bei 180°C 35 Min. backen.']
             }
         ];
 
@@ -682,18 +517,8 @@
                 time: 20,
                 servings: 2,
                 image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80',
-                ingredients: ['200g Mehl', '1 Pck. Backpulver', '2 EL Zucker', '1 Ei', '200ml Milch', '150g Frische Beeren', 'Ahornsirup'],
-                instructions: ['Trockene Zutaten in Schüssel mischen.', 'Ei und Milch verrühren und unter den Teig rühren.', 'In Pfanne ausbacken und mit Beeren servieren.']
-            },
-            {
-                title: 'Avocado-Lachs Bowl mit Sesam',
-                mainCategory: 'kochen',
-                subcategory: 'Snack & Salat',
-                time: 15,
-                servings: 2,
-                image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
-                ingredients: ['1 Avocado', '200g Räucherlachs', '150g Quinoa oder Reis', '1 Gurke', '2 EL Sojasauce', '1 EL Sesam'],
-                instructions: ['Quinoa vorgaren.', 'Avocado und Gurke würfeln.', 'Zutaten in Schüssel anrichten, mit Sojasauce und Sesam beträufeln.']
+                ingredients: ['200g Mehl', '1 Pck. Backpulver', '2 EL Zucker', '1 Ei', '200ml Milch', '150g Frische Beeren'],
+                instructions: ['Zutaten verrühren.', 'In Pfanne ausbacken und mit Beeren servieren.']
             }
         ];
 
@@ -702,46 +527,33 @@
             backen: ['Alle', 'Kuchen', 'Brot & Brötchen', 'Dessert & Süßes', 'Glutenfrei/Vegan']
         };
 
-        // App state variables
         let recipes = [];
         let shoppingList = [];
-        let activeView = 'recipes'; // 'recipes', 'favorites', 'shopping', 'detail'
-        let selectedMainCategory = 'all'; // 'all', 'kochen', 'backen'
+        let activeView = 'recipes';
+        let selectedMainCategory = 'all';
         let selectedSubcategory = 'Alle';
         let currentRecipeDetail = null;
         let currentServingsScale = 4;
         let wakeLock = null;
 
-        // Timer variables
         let timerInterval = null;
         let timerSecondsLeft = 0;
         let timerIsRunning = false;
 
         function initApp() {
-            // Load saved recipes from localStorage or fallback to defaults
             const savedRecipes = localStorage.getItem('gourmetchef_recipes');
             if (savedRecipes) {
-                try {
-                    recipes = JSON.parse(savedRecipes);
-                } catch (e) {
-                    recipes = DEFAULT_RECIPES;
-                }
+                try { recipes = JSON.parse(savedRecipes); } catch (e) { recipes = DEFAULT_RECIPES; }
             } else {
                 recipes = DEFAULT_RECIPES;
                 saveRecipesToStorage();
             }
 
-            // Load shopping list
             const savedShopping = localStorage.getItem('gourmetchef_shopping');
             if (savedShopping) {
-                try {
-                    shoppingList = JSON.parse(savedShopping);
-                } catch (e) {
-                    shoppingList = [];
-                }
+                try { shoppingList = JSON.parse(savedShopping); } catch (e) { shoppingList = []; }
             }
 
-            // Initial UI Renders
             updateSubcategoryChips();
             renderRecipes();
             renderShoppingList();
@@ -752,44 +564,27 @@
 
         function saveRecipesToStorage() {
             localStorage.setItem('gourmetchef_recipes', JSON.stringify(recipes));
+            if (window.saveToCloud) window.saveToCloud(recipes, shoppingList);
         }
 
         function saveShoppingToStorage() {
             localStorage.setItem('gourmetchef_shopping', JSON.stringify(shoppingList));
             updateShoppingBadge();
+            if (window.saveToCloud) window.saveToCloud(recipes, shoppingList);
         }
 
         function switchView(viewName, recipeId = null) {
             activeView = viewName;
-            
-            // Hide all view containers
             document.getElementById('view-recipes').classList.add('hidden');
             document.getElementById('view-favorites').classList.add('hidden');
             document.getElementById('view-shopping').classList.add('hidden');
             document.getElementById('view-detail').classList.add('hidden');
 
-            // Show active container
             document.getElementById(`view-${viewName}`).classList.remove('hidden');
 
-            // Update nav buttons styling
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-cooking', 'bg-orange-50');
-                btn.classList.add('text-slateMuted');
-            });
-
-            const activeBtn = document.getElementById(`nav-${viewName}`);
-            if (activeBtn) {
-                activeBtn.classList.add('text-cooking', 'bg-orange-50');
-                activeBtn.classList.remove('text-slateMuted');
-            }
-
-            if (viewName === 'favorites') {
-                renderFavorites();
-            } else if (viewName === 'shopping') {
-                renderShoppingList();
-            } else if (viewName === 'detail' && recipeId) {
-                loadRecipeDetail(recipeId);
-            }
+            if (viewName === 'favorites') renderFavorites();
+            else if (viewName === 'shopping') renderShoppingList();
+            else if (viewName === 'detail' && recipeId) loadRecipeDetail(recipeId);
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -797,19 +592,8 @@
         function setMainCategory(cat) {
             selectedMainCategory = cat;
             selectedSubcategory = 'Alle';
-
-            // Style active mode button
-            document.querySelectorAll('.mode-tab').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-slateDark', 'shadow-sm');
-                btn.classList.add('text-gray-500');
-            });
-
-            const activeTab = document.getElementById(`mode-${cat}`);
-            if (activeTab) {
-                activeTab.classList.add('bg-white', 'text-slateDark', 'shadow-sm');
-                activeTab.classList.remove('text-gray-500');
-            }
-
+            document.querySelectorAll('.mode-tab').forEach(btn => btn.classList.remove('bg-white', 'text-slateDark', 'shadow-sm'));
+            document.getElementById(`mode-${cat}`).classList.add('bg-white', 'text-slateDark', 'shadow-sm');
             updateSubcategoryChips();
             renderRecipes();
         }
@@ -817,144 +601,59 @@
         function updateSubcategoryChips() {
             const container = document.getElementById('subcategory-chips');
             container.innerHTML = '';
+            let subs = selectedMainCategory === 'kochen' ? SUBCATEGORIES.kochen : (selectedMainCategory === 'backen' ? SUBCATEGORIES.backen : ['Alle', 'Hauptspeise', 'Kuchen', 'Brot & Brötchen']);
 
-            let availableSubs = ['Alle'];
-            if (selectedMainCategory === 'kochen') {
-                availableSubs = SUBCATEGORIES.kochen;
-            } else if (selectedMainCategory === 'backen') {
-                availableSubs = SUBCATEGORIES.backen;
-            } else {
-                availableSubs = ['Alle', 'Hauptspeise', 'Kuchen', 'Brot & Brötchen', 'Snack & Salat', 'Dessert & Süßes', 'Schnell & Einfach'];
-            }
-
-            availableSubs.forEach(sub => {
-                const isSelected = selectedSubcategory === sub;
+            subs.forEach(sub => {
                 const chip = document.createElement('button');
-                chip.className = `px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                    isSelected 
-                    ? 'bg-slateDark text-white shadow-sm' 
-                    : 'bg-gray-100 text-slateMuted hover:bg-gray-200 hover:text-slateDark'
-                }`;
+                chip.className = `px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${selectedSubcategory === sub ? 'bg-slateDark text-white shadow-sm' : 'bg-gray-100 text-slateMuted hover:bg-gray-200'}`;
                 chip.textContent = sub;
-                chip.onclick = () => {
-                    selectedSubcategory = sub;
-                    updateSubcategoryChips();
-                    renderRecipes();
-                };
+                chip.onclick = () => { selectedSubcategory = sub; updateSubcategoryChips(); renderRecipes(); };
                 container.appendChild(chip);
             });
         }
 
         function renderRecipes() {
             const grid = document.getElementById('recipes-grid');
-            const emptyState = document.getElementById('empty-state');
             const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
-            const sortVal = document.getElementById('sort-select').value;
 
-            // Show/hide clear search button
-            document.getElementById('clear-search-btn').classList.toggle('hidden', searchVal === '');
-
-            // Filter
             let filtered = recipes.filter(r => {
-                const matchesMainCat = selectedMainCategory === 'all' || r.mainCategory === selectedMainCategory;
-                const matchesSubCat = selectedSubcategory === 'Alle' || r.subcategory === selectedSubcategory;
-                const matchesSearch = !searchVal || 
-                    r.title.toLowerCase().includes(searchVal) || 
-                    r.ingredients.some(ing => ing.toLowerCase().includes(searchVal));
-
-                return matchesMainCat && matchesSubCat && matchesSearch;
+                const matchesMain = selectedMainCategory === 'all' || r.mainCategory === selectedMainCategory;
+                const matchesSub = selectedSubcategory === 'Alle' || r.subcategory === selectedSubcategory;
+                const matchesSearch = !searchVal || r.title.toLowerCase().includes(searchVal);
+                return matchesMain && matchesSub && matchesSearch;
             });
 
-            // Sort
-            if (sortVal === 'time-asc') {
-                filtered.sort((a, b) => a.time - b.time);
-            } else if (sortVal === 'title-asc') {
-                filtered.sort((a, b) => a.title.localeCompare(b.title));
-            } else {
-                // Newest (Reverse order)
-                filtered.reverse();
-            }
-
-            // Update recipe count title
             document.getElementById('recipe-count-badge').textContent = filtered.length;
-
-            if (filtered.length === 0) {
-                grid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
+            document.getElementById('empty-state').classList.toggle('hidden', filtered.length > 0);
             grid.innerHTML = filtered.map(r => createRecipeCardHtml(r)).join('');
         }
 
         function renderFavorites() {
             const grid = document.getElementById('favorites-grid');
-            const emptyState = document.getElementById('empty-favorites');
             const favs = recipes.filter(r => r.isFavorite);
-
-            if (favs.length === 0) {
-                grid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
+            document.getElementById('empty-favorites').classList.toggle('hidden', favs.length > 0);
             grid.innerHTML = favs.map(r => createRecipeCardHtml(r)).join('');
         }
 
         function createRecipeCardHtml(r) {
             const isCooking = r.mainCategory === 'kochen';
-            const badgeBg = isCooking ? 'bg-cooking' : 'bg-baking';
-            const badgeText = isCooking ? '🍳 Kochen' : '🧁 Backen';
-
             return `
-                <div onclick="switchView('detail', '${r.id}')" class="group bg-white rounded-3xl overflow-hidden shadow-soft border border-gray-100 hover:shadow-card hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full">
+                <div onclick="switchView('detail', '${r.id}')" class="group bg-white rounded-3xl overflow-hidden shadow-soft border border-gray-100 hover:shadow-card transition-all cursor-pointer flex flex-col h-full">
                     <div class="relative h-48 w-full overflow-hidden bg-gray-100">
-                        <img src="${r.image}" alt="${r.title}" 
-                             onerror="this.src='https://placehold.co/600x400/F8F9FA/2D3142?text=GourmetChef'" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        
-                        <!-- Badges -->
-                        <div class="absolute top-3 left-3 flex gap-2">
-                            <span class="${badgeBg} text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                                ${badgeText}
-                            </span>
-                        </div>
-
-                        <!-- Favorite Heart Button -->
-                        <button onclick="event.stopPropagation(); toggleFavorite('${r.id}')" 
-                                class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 backdrop-blur-md hover:bg-white flex items-center justify-center text-rose-500 shadow-sm transition-all transform active:scale-90">
-                            <i class="${r.isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart text-base"></i>
+                        <img src="${r.image}" alt="${r.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <button onclick="event.stopPropagation(); toggleFavorite('${r.id}')" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 flex items-center justify-center text-rose-500 shadow-sm">
+                            <i class="${r.isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                         </button>
-
-                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-xl text-xs font-bold text-slateDark flex items-center gap-1 shadow-sm">
-                            <i class="fa-regular fa-clock text-amber-500"></i> ${r.time} Min.
-                        </div>
                     </div>
-
-                    <div class="p-5 flex flex-col flex-grow justify-between space-y-3">
-                        <div>
-                            <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">${r.subcategory || 'Rezept'}</span>
-                            <h3 class="font-extrabold text-slateDark text-base line-clamp-2 mt-0.5 group-hover:text-cooking transition-colors">
-                                ${r.title}
-                            </h3>
-                        </div>
-
-                        <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-slateMuted font-semibold">
-                            <span><i class="fa-solid fa-users text-gray-400 mr-1"></i> ${r.servings} Portionen</span>
-                            <span class="text-cooking font-bold flex items-center gap-1">
-                                Ansehen <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                            </span>
+                    <div class="p-5 flex flex-col justify-between flex-grow">
+                        <h3 class="font-extrabold text-slateDark text-base line-clamp-2">${r.title}</h3>
+                        <div class="pt-3 border-t border-gray-100 flex justify-between text-xs text-slateMuted">
+                            <span>⏱️ ${r.time} Min.</span>
+                            <span>👥 ${r.servings} Port.</span>
                         </div>
                     </div>
                 </div>
             `;
-        }
-
-        function clearSearch() {
-            document.getElementById('search-input').value = '';
-            renderRecipes();
         }
 
         function toggleFavorite(id) {
@@ -975,30 +674,17 @@
             currentRecipeDetail = recipe;
             currentServingsScale = recipe.servings;
 
-            // DOM Updates
             document.getElementById('detail-title').textContent = recipe.title;
             document.getElementById('detail-time').textContent = `${recipe.time} Min.`;
             document.getElementById('detail-image').src = recipe.image;
-            
-            const isCooking = recipe.mainCategory === 'kochen';
-            const badge = document.getElementById('detail-badge-type');
-            badge.textContent = isCooking ? '🍳 KOCHEN' : '🧁 BACKEN';
-            badge.className = `px-3 py-1 rounded-full text-xs font-extrabold text-white shadow-md uppercase tracking-wider ${isCooking ? 'bg-cooking' : 'bg-baking'}`;
-
-            document.getElementById('detail-badge-subcategory').textContent = recipe.subcategory || 'Allgemein';
-            document.getElementById('detail-category-label').textContent = isCooking ? 'Kochen' : 'Backen';
             document.getElementById('detail-servings-count').textContent = `${currentServingsScale} Pers.`;
 
-            // Dynamic Action buttons header
             document.getElementById('detail-actions').innerHTML = `
-                <button onclick="toggleFavorite('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border border-gray-200 text-rose-500 hover:bg-rose-50 flex items-center justify-center shadow-sm transition-all">
-                    <i class="${recipe.isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart text-base"></i>
+                <button onclick="toggleFavorite('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border text-rose-500 flex items-center justify-center shadow-sm">
+                    <i class="${recipe.isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                 </button>
-                <button onclick="editRecipe('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border border-gray-200 text-slateDark hover:bg-gray-50 flex items-center justify-center shadow-sm transition-all">
-                    <i class="fa-solid fa-pen-to-square text-sm"></i>
-                </button>
-                <button onclick="deleteRecipe('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border border-gray-200 text-rose-600 hover:bg-rose-50 flex items-center justify-center shadow-sm transition-all">
-                    <i class="fa-solid fa-trash-can text-sm"></i>
+                <button onclick="deleteRecipe('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border text-rose-600 flex items-center justify-center shadow-sm">
+                    <i class="fa-solid fa-trash-can"></i>
                 </button>
             `;
 
@@ -1010,7 +696,6 @@
             if (!currentRecipeDetail) return;
             const newScale = currentServingsScale + delta;
             if (newScale < 1) return;
-
             currentServingsScale = newScale;
             document.getElementById('detail-servings-count').textContent = `${currentServingsScale} Pers.`;
             renderScaledIngredients();
@@ -1021,26 +706,20 @@
             const container = document.getElementById('detail-ingredients-list');
             const ratio = currentServingsScale / currentRecipeDetail.servings;
 
-            container.innerHTML = currentRecipeDetail.ingredients.map((ing, idx) => {
-                const scaledText = scaleIngredientText(ing, ratio);
-                return `
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl hover:bg-gray-50 cursor-pointer transition-colors group">
-                        <input type="checkbox" class="custom-checkbox mt-1 h-5 w-5 rounded-lg border-gray-300 text-cooking focus:ring-cooking/30">
-                        <span class="text-xs sm:text-sm font-medium text-slateDark group-hover:text-black leading-snug">
-                            ${scaledText}
-                        </span>
-                    </label>
-                `;
+            container.innerHTML = currentRecipeDetail.ingredients.map(ing => {
+                const scaled = scaleIngredientText(ing, ratio);
+                return `<label class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="h-4 w-4 rounded text-cooking">
+                    <span class="text-sm font-medium text-slateDark">${scaled}</span>
+                </label>`;
             }).join('');
         }
 
         function scaleIngredientText(text, ratio) {
-            // Regex to find leading or inline numbers (e.g., "400g", "2.5 EL", "1/2")
             return text.replace(/(\d+[\.,]?\d*)/g, (match) => {
                 const num = parseFloat(match.replace(',', '.'));
                 if (isNaN(num)) return match;
                 const scaled = num * ratio;
-                // Round nicely (e.g. 1.25 -> 1.3 or clean integers)
                 return Number.isInteger(scaled) ? scaled : scaled.toFixed(1).replace('.', ',');
             });
         }
@@ -1048,92 +727,55 @@
         function renderInstructions() {
             if (!currentRecipeDetail) return;
             const container = document.getElementById('detail-instructions-list');
-
-            container.innerHTML = currentRecipeDetail.instructions.map((step, idx) => {
-                return `
-                    <div class="flex gap-4 p-4 rounded-2xl bg-gray-50/70 border border-gray-100 hover:border-gray-200 transition-all">
-                        <div class="w-8 h-8 rounded-xl bg-slateDark text-white font-extrabold text-xs flex items-center justify-center flex-shrink-0 shadow-sm">
-                            ${idx + 1}
-                        </div>
-                        <p class="text-xs sm:text-sm font-medium text-slateDark leading-relaxed pt-1">
-                            ${step}
-                        </p>
-                    </div>
-                `;
-            }).join('');
+            container.innerHTML = currentRecipeDetail.instructions.map((step, idx) => `
+                <div class="flex gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+                    <div class="w-7 h-7 rounded-lg bg-slateDark text-white font-bold text-xs flex items-center justify-center flex-shrink-0">${idx + 1}</div>
+                    <p class="text-sm font-medium text-slateDark pt-0.5">${step}</p>
+                </div>
+            `).join('');
         }
 
         function addRecipeToShoppingList() {
             if (!currentRecipeDetail) return;
             const ratio = currentServingsScale / currentRecipeDetail.servings;
-
             currentRecipeDetail.ingredients.forEach(ing => {
-                const scaledIng = scaleIngredientText(ing, ratio);
                 shoppingList.push({
                     id: 'shop-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
-                    text: scaledIng,
+                    text: scaleIngredientText(ing, ratio),
                     recipeTitle: currentRecipeDetail.title,
                     checked: false
                 });
             });
-
             saveShoppingToStorage();
             showToast('Zutaten auf Einkaufsliste gesetzt! 🛒');
         }
 
         function addCustomShoppingItem() {
             const input = document.getElementById('custom-shopping-input');
-            const val = input.value.trim();
-            if (!val) return;
-
-            shoppingList.push({
-                id: 'shop-' + Date.now(),
-                text: val,
-                recipeTitle: 'Eigene Zutat',
-                checked: false
-            });
-
+            if (!input.value.trim()) return;
+            shoppingList.push({ id: 'shop-' + Date.now(), text: input.value.trim(), recipeTitle: 'Eigene Zutat', checked: false });
             input.value = '';
             saveShoppingToStorage();
             renderShoppingList();
-            showToast('Zutat hinzugefügt');
         }
 
         function renderShoppingList() {
             const container = document.getElementById('shopping-list-container');
-            const emptyState = document.getElementById('empty-shopping');
-
-            if (shoppingList.length === 0) {
-                container.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
+            document.getElementById('empty-shopping').classList.toggle('hidden', shoppingList.length > 0);
             container.innerHTML = shoppingList.map(item => `
-                <div class="flex items-center justify-between p-3.5 rounded-2xl ${item.checked ? 'bg-gray-50 opacity-60' : 'bg-gray-50/80'} border border-gray-100 transition-all">
-                    <label class="flex items-center gap-3 cursor-pointer flex-grow">
-                        <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleShoppingItem('${item.id}')" 
-                               class="h-5 w-5 rounded-lg border-gray-300 text-amber-500 focus:ring-amber-500/30">
-                        <div>
-                            <span class="text-xs sm:text-sm font-semibold text-slateDark ${item.checked ? 'line-through text-gray-400' : ''}">${item.text}</span>
-                            <span class="block text-[10px] text-slateMuted">${item.recipeTitle}</span>
-                        </div>
+                <div class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 border border-gray-100">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleShoppingItem('${item.id}')" class="h-5 w-5 text-amber-500 rounded">
+                        <span class="text-sm font-semibold ${item.checked ? 'line-through text-gray-400' : 'text-slateDark'}">${item.text}</span>
                     </label>
-                    <button onclick="deleteShoppingItem('${item.id}')" class="text-gray-400 hover:text-rose-500 p-2 text-sm transition-colors">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <button onclick="deleteShoppingItem('${item.id}')" class="text-gray-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             `).join('');
         }
 
         function toggleShoppingItem(id) {
             const item = shoppingList.find(i => i.id === id);
-            if (item) {
-                item.checked = !item.checked;
-                saveShoppingToStorage();
-                renderShoppingList();
-            }
+            if (item) { item.checked = !item.checked; saveShoppingToStorage(); renderShoppingList(); }
         }
 
         function deleteShoppingItem(id) {
@@ -1143,390 +785,141 @@
         }
 
         function clearShoppingList() {
-            if (shoppingList.length === 0) return;
             shoppingList = [];
             saveShoppingToStorage();
             renderShoppingList();
-            showToast('Einkaufsliste geleert');
         }
 
         function updateShoppingBadge() {
             const badge = document.getElementById('shopping-badge');
             const count = shoppingList.filter(i => !i.checked).length;
-            if (count > 0) {
-                badge.textContent = count;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
+            badge.textContent = count;
+            badge.classList.toggle('hidden', count === 0);
         }
 
-        function setQuickTimer(minutes) {
-            timerSecondsLeft = minutes * 60;
-            updateTimerDisplay();
-            if (timerIsRunning) {
-                clearInterval(timerInterval);
-                startTimerInterval();
-            }
-        }
-
+        function setQuickTimer(min) { timerSecondsLeft = min * 60; updateTimerDisplay(); }
         function toggleTimer() {
-            if (timerIsRunning) {
-                clearInterval(timerInterval);
-                timerIsRunning = false;
-                document.getElementById('timer-toggle-btn').textContent = 'Timer Fortsetzen';
-            } else {
-                if (timerSecondsLeft <= 0) timerSecondsLeft = 10 * 60; // default 10m
-                startTimerInterval();
+            if (timerIsRunning) { clearInterval(timerInterval); timerIsRunning = false; }
+            else {
+                if (timerSecondsLeft <= 0) timerSecondsLeft = 600;
                 timerIsRunning = true;
-                document.getElementById('timer-toggle-btn').textContent = 'Timer Pausieren';
+                timerInterval = setInterval(() => {
+                    if (timerSecondsLeft > 0) { timerSecondsLeft--; updateTimerDisplay(); }
+                    else { clearInterval(timerInterval); timerIsRunning = false; alert('⏰ Küchen-Timer abgelaufen!'); }
+                }, 1000);
             }
         }
-
-        function startTimerInterval() {
-            timerIsRunning = true;
-            document.getElementById('timer-toggle-btn').textContent = 'Timer Pausieren';
-            timerInterval = setInterval(() => {
-                if (timerSecondsLeft > 0) {
-                    timerSecondsLeft--;
-                    updateTimerDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    timerIsRunning = false;
-                    document.getElementById('timer-toggle-btn').textContent = 'Timer Starten';
-                    playTimerAlert();
-                }
-            }, 1000);
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerIsRunning = false;
-            timerSecondsLeft = 0;
-            updateTimerDisplay();
-            document.getElementById('timer-toggle-btn').textContent = 'Timer Starten';
-        }
-
+        function resetTimer() { clearInterval(timerInterval); timerIsRunning = false; timerSecondsLeft = 0; updateTimerDisplay(); }
         function updateTimerDisplay() {
-            const mins = Math.floor(timerSecondsLeft / 60);
-            const secs = timerSecondsLeft % 60;
-            document.getElementById('timer-display').textContent = 
-                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function playTimerAlert() {
-            showToast('⏰ Küchen-Timer ist abgelaufen!');
-            // Web Audio API beep sound
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
-                osc.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 1);
-            } catch (e) {}
+            const m = Math.floor(timerSecondsLeft / 60), s = timerSecondsLeft % 60;
+            document.getElementById('timer-display').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
         }
 
         async function toggleWakeLock() {
-            const btn = document.getElementById('wakelock-btn');
-            const text = document.getElementById('wakelock-text');
-
-            if (!wakeLock) {
-                try {
-                    if ('wakeLock' in navigator) {
-                        wakeLock = await navigator.wakeLock.request('screen');
-                        btn.classList.add('bg-amber-100', 'text-amber-800');
-                        text.textContent = 'Display an lassen: AN';
-                        showToast('Bildschirm bleibt aktiv 💡');
-                    } else {
-                        showToast('Wake Lock wird vom Browser nicht unterstützt');
-                    }
-                } catch (err) {
-                    showToast('Fehler beim Aktivieren');
-                }
-            } else {
-                wakeLock.release().then(() => {
-                    wakeLock = null;
-                    btn.classList.remove('bg-amber-100', 'text-amber-800');
-                    text.textContent = 'Display an lassen: AUS';
-                    showToast('Normaler Bildschirm-Timeout');
-                });
+            if (!wakeLock && 'wakeLock' in navigator) {
+                try { wakeLock = await navigator.wakeLock.request('screen'); showToast('Display bleibt an 💡'); } catch(e){}
+            } else if (wakeLock) {
+                wakeLock.release().then(() => { wakeLock = null; showToast('Normaler Timeout'); });
             }
         }
 
-        function openImportModal() {
-            document.getElementById('recipe-modal').classList.remove('hidden');
-            document.getElementById('modal-title').textContent = 'Neues Rezept hinzufügen';
-            document.getElementById('form-recipe-id').value = '';
-            document.getElementById('manual-recipe-form').reset();
-            setImportTab('manual');
-        }
-
-        function closeImportModal() {
-            document.getElementById('recipe-modal').classList.add('hidden');
-        }
-
+        function openImportModal() { document.getElementById('recipe-modal').classList.remove('hidden'); }
+        function closeImportModal() { document.getElementById('recipe-modal').classList.add('hidden'); }
         function setImportTab(tab) {
             document.getElementById('manual-recipe-form').classList.toggle('hidden', tab !== 'manual');
             document.getElementById('smart-import-container').classList.toggle('hidden', tab !== 'smart');
             document.getElementById('preset-import-container').classList.toggle('hidden', tab !== 'presets');
-
-            document.querySelectorAll('#import-type-selector button').forEach(b => {
-                b.classList.remove('bg-white', 'text-slateDark', 'shadow-sm');
-                b.classList.add('text-gray-500');
-            });
-
-            const activeBtn = document.getElementById(`tab-btn-${tab}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-white', 'text-slateDark', 'shadow-sm');
-                activeBtn.classList.remove('text-gray-500');
-            }
         }
 
         function updateFormSubcategories() {
             const mainCat = document.getElementById('form-main-category').value;
-            const subSelect = document.getElementById('form-subcategory');
-            subSelect.innerHTML = '';
-
-            const subs = SUBCATEGORIES[mainCat].filter(s => s !== 'Alle');
-            subs.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = s;
-                subSelect.appendChild(opt);
-            });
+            const select = document.getElementById('form-subcategory');
+            select.innerHTML = SUBCATEGORIES[mainCat].filter(s => s !== 'Alle').map(s => `<option value="${s}">${s}</option>`).join('');
         }
 
         function saveRecipeFromForm(e) {
             e.preventDefault();
-
-            const existingId = document.getElementById('form-recipe-id').value;
-            const title = document.getElementById('form-title').value.trim();
-            const mainCategory = document.getElementById('form-main-category').value;
-            const subcategory = document.getElementById('form-subcategory').value;
-            const time = parseInt(document.getElementById('form-time').value) || 30;
-            const servings = parseInt(document.getElementById('form-servings').value) || 4;
-            const image = document.getElementById('form-image').value.trim() || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80';
-            
-            const ingredientsRaw = document.getElementById('form-ingredients').value;
-            const instructionsRaw = document.getElementById('form-instructions').value;
-
-            const ingredients = ingredientsRaw.split('\n').map(s => s.trim()).filter(Boolean);
-            const instructions = instructionsRaw.split('\n').map(s => s.trim()).filter(Boolean);
-
-            if (existingId) {
-                // Edit existing
-                const recipe = recipes.find(r => r.id === existingId);
-                if (recipe) {
-                    recipe.title = title;
-                    recipe.mainCategory = mainCategory;
-                    recipe.subcategory = subcategory;
-                    recipe.time = time;
-                    recipe.servings = servings;
-                    recipe.image = image;
-                    recipe.ingredients = ingredients;
-                    recipe.instructions = instructions;
-                }
-            } else {
-                // Create new
-                const newRecipe = {
-                    id: 'rec-' + Date.now(),
-                    title,
-                    mainCategory,
-                    subcategory,
-                    time,
-                    servings,
-                    image,
-                    isFavorite: false,
-                    ingredients,
-                    instructions
-                };
-                recipes.unshift(newRecipe);
-            }
-
-            saveRecipesToStorage();
-            closeImportModal();
-            renderRecipes();
-            showToast(existingId ? 'Rezept aktualisiert! ✨' : 'Neues Rezept erstellt! 🎉');
-
-            if (existingId && activeView === 'detail') {
-                loadRecipeDetail(existingId);
-            }
-        }
-
-        function editRecipe(id) {
-            const recipe = recipes.find(r => r.id === id);
-            if (!recipe) return;
-
-            openImportModal();
-            document.getElementById('modal-title').textContent = 'Rezept bearbeiten';
-            document.getElementById('form-recipe-id').value = recipe.id;
-            document.getElementById('form-title').value = recipe.title;
-            document.getElementById('form-main-category').value = recipe.mainCategory;
-            updateFormSubcategories();
-            document.getElementById('form-subcategory').value = recipe.subcategory;
-            document.getElementById('form-time').value = recipe.time;
-            document.getElementById('form-servings').value = recipe.servings;
-            document.getElementById('form-image').value = recipe.image;
-            document.getElementById('form-ingredients').value = recipe.ingredients.join('\n');
-            document.getElementById('form-instructions').value = recipe.instructions.join('\n');
-        }
-
-        function deleteRecipe(id) {
-            if (confirm('Möchtest du dieses Rezept wirklich löschen?')) {
-                recipes = recipes.filter(r => r.id !== id);
-                saveRecipesToStorage();
-                switchView('recipes');
-                renderRecipes();
-                showToast('Rezept gelöscht');
-            }
-        }
-
-        function parseSmartText() {
-            const text = document.getElementById('smart-import-text').value.trim();
-            if (!text) return;
-
-            // Simple Smart Parser Logic
-            let title = 'Importiertes Rezept';
-            let mainCategory = 'kochen';
-            let subcategory = 'Hauptspeise';
-            let time = 30;
-            let servings = 4;
-            let ingredients = [];
-            let instructions = [];
-
-            const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-            
-            // Detect Title from first non-empty line or "Titel:"
-            const titleLine = lines.find(l => l.toLowerCase().startsWith('titel:') || l.toLowerCase().startsWith('title:'));
-            if (titleLine) {
-                title = titleLine.split(':')[1].trim();
-            } else if (lines.length > 0) {
-                title = lines[0].replace(/^(rezept|titel):/i, '').trim();
-            }
-
-            // Detect Category
-            if (text.toLowerCase().includes('backen') || text.toLowerCase().includes('kuchen') || text.toLowerCase().includes('brot') || text.toLowerCase().includes('teig')) {
-                mainCategory = 'backen';
-                subcategory = 'Kuchen';
-            }
-
-            // Detect Time
-            const timeMatch = text.match(/(\d+)\s*(min|minuten|std|stunden)/i);
-            if (timeMatch) {
-                let parsedTime = parseInt(timeMatch[1]);
-                if (timeMatch[2].toLowerCase().startsWith('std')) parsedTime *= 60;
-                time = parsedTime;
-            }
-
-            // Simple Section Splitting (Zutaten vs Zubereitung)
-            let currentSection = 'unknown';
-            lines.forEach(line => {
-                const lower = line.toLowerCase();
-                if (lower.includes('zutat')) {
-                    currentSection = 'ingredients';
-                    return;
-                }
-                if (lower.includes('zubereitung') || lower.includes('anleitung') || lower.includes('schritte')) {
-                    currentSection = 'instructions';
-                    return;
-                }
-
-                if (currentSection === 'ingredients') {
-                    ingredients.push(line.replace(/^[-*•]\s*/, ''));
-                } else if (currentSection === 'instructions') {
-                    instructions.push(line.replace(/^(\d+[\.\)]|[-*•])\s*/, ''));
-                }
-            });
-
-            // Fallbacks if sections were not cleanly labeled
-            if (ingredients.length === 0) {
-                ingredients = ['300g Hauptzutat', '1 Prise Gewürze', '2 EL Öl'];
-            }
-            if (instructions.length === 0) {
-                instructions = lines.filter(l => !l.toLowerCase().includes('titel:') && l !== title);
-            }
-
-            // Create new Recipe
             const newRecipe = {
                 id: 'rec-' + Date.now(),
-                title,
-                mainCategory,
-                subcategory,
-                time,
-                servings,
-                image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80',
+                title: document.getElementById('form-title').value.trim(),
+                mainCategory: document.getElementById('form-main-category').value,
+                subcategory: document.getElementById('form-subcategory').value,
+                time: parseInt(document.getElementById('form-time').value) || 30,
+                servings: parseInt(document.getElementById('form-servings').value) || 4,
+                image: document.getElementById('form-image').value.trim() || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80',
                 isFavorite: false,
-                ingredients,
-                instructions
+                ingredients: document.getElementById('form-ingredients').value.split('\n').filter(Boolean),
+                instructions: document.getElementById('form-instructions').value.split('\n').filter(Boolean)
             };
 
             recipes.unshift(newRecipe);
             saveRecipesToStorage();
             closeImportModal();
             renderRecipes();
-            showToast('Rezept erfolgreich geparst & importiert! ✨');
+            showToast('Neues Rezept gespeichert! 🎉');
+        }
+
+        function deleteRecipe(id) {
+            if (confirm('Rezept wirklich löschen?')) {
+                recipes = recipes.filter(r => r.id !== id);
+                saveRecipesToStorage();
+                switchView('recipes');
+                renderRecipes();
+            }
+        }
+
+        function parseSmartText() {
+            const text = document.getElementById('smart-import-text').value.trim();
+            if (!text) return;
+            const lines = text.split('\n').filter(Boolean);
+            const newRecipe = {
+                id: 'rec-' + Date.now(),
+                title: lines[0] || 'Importiertes Rezept',
+                mainCategory: 'kochen',
+                subcategory: 'Hauptspeise',
+                time: 30,
+                servings: 4,
+                image: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80',
+                ingredients: lines.slice(1, 5),
+                instructions: lines.slice(5)
+            };
+            recipes.unshift(newRecipe);
+            saveRecipesToStorage();
+            closeImportModal();
+            renderRecipes();
         }
 
         function renderPresetImports() {
-            const container = document.getElementById('preset-recipes-list');
-            container.innerHTML = WEB_PRESETS.map((p, idx) => `
-                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-gray-50 border border-gray-100">
-                    <div class="flex items-center gap-3">
-                        <img src="${p.image}" class="w-12 h-12 rounded-xl object-cover">
-                        <div>
-                            <h4 class="font-bold text-sm text-slateDark">${p.title}</h4>
-                            <span class="text-xs text-slateMuted">${p.mainCategory === 'kochen' ? '🍳 Kochen' : '🧁 Backen'} • ${p.time} Min.</span>
-                        </div>
-                    </div>
-                    <button onclick="importPresetRecipe(${idx})" class="px-3.5 py-1.5 rounded-xl bg-cooking hover:bg-cookingHover text-white font-bold text-xs shadow-sm transition-all">
-                        <i class="fa-solid fa-download mr-1"></i> Importieren
-                    </button>
+            document.getElementById('preset-recipes-list').innerHTML = WEB_PRESETS.map((p, idx) => `
+                <div class="flex items-center justify-between p-3 rounded-2xl bg-gray-50">
+                    <span class="font-bold text-sm text-slateDark">${p.title}</span>
+                    <button onclick="importPresetRecipe(${idx})" class="px-3 py-1 bg-cooking text-white rounded-xl text-xs font-bold">Importieren</button>
                 </div>
             `).join('');
         }
 
-       // Presets & Toast Notifications
-    function importPresetRecipe(index) {
-        const preset = WEB_PRESETS[index];
-        if (!preset) return;
+        function importPresetRecipe(index) {
+            recipes.unshift({ ...WEB_PRESETS[index], id: 'rec-' + Date.now() });
+            saveRecipesToStorage();
+            closeImportModal();
+            renderRecipes();
+        }
 
-        const newRecipe = {
-            ...preset,
-            id: 'rec-' + Date.now()
-        };
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
 
-        recipes.unshift(newRecipe);
-        saveRecipesToStorage();
-        closeImportModal();
-        renderRecipes();
-        showToast(`"${preset.title}" erfolgreich importiert! 🎉`);
-    }
-
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        document.getElementById('toast-message').textContent = msg;
-
-        toast.classList.remove('translate-y-20', 'opacity-0');
-        toast.classList.add('translate-y-0', 'opacity-100');
-
-        setTimeout(() => {
-            toast.classList.remove('translate-y-0', 'opacity-100');
-            toast.classList.add('translate-y-20', 'opacity-0');
-        }, 3000);
-    }
-
-    // App beim Laden starten
-    window.onload = initApp;
+        window.onload = initApp;
     </script>
 
-    <!-- FIREBASE INTEGRATION & SYNC -->
+    <!-- FIREBASE SYNCHRONISATION -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-      // Deine Firebase Konfiguration
       const firebaseConfig = {
         apiKey: "AIzaSyCOMpewZO0VzMDOvsx6AbEJAKnFDRKUlus",
         authDomain: "gourmetchef-24773.firebaseapp.com",
@@ -1537,12 +930,10 @@
         measurementId: "G-V8G9M7JXDR"
       };
 
-      // Firebase initialisieren
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const docRef = doc(db, "appData", "shared");
 
-      // In der Cloud speichern
       window.saveToCloud = async function(recipesData, shoppingData) {
         try {
           await setDoc(docRef, {
@@ -1550,12 +941,9 @@
             shoppingList: shoppingData,
             updatedAt: new Date().toISOString()
           });
-        } catch (e) {
-          console.error("Fehler beim Cloud-Speichern:", e);
-        }
+        } catch (e) { console.error("Cloud-Error:", e); }
       };
 
-      // Echtzeit-Synchronisation lauschen
       onSnapshot(docRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.data();
