@@ -1487,37 +1487,93 @@
             `).join('');
         }
 
-        function importPresetRecipe(index) {
-            const preset = WEB_PRESETS[index];
-            if (!preset) return;
+       // Presets & Toast Notifications
+    function importPresetRecipe(index) {
+        const preset = WEB_PRESETS[index];
+        if (!preset) return;
 
-            const newRecipe = {
-                ...preset,
-                id: 'rec-' + Date.now()
-            };
+        const newRecipe = {
+            ...preset,
+            id: 'rec-' + Date.now()
+        };
 
-            recipes.unshift(newRecipe);
-            saveRecipesToStorage();
-            closeImportModal();
-            renderRecipes();
-            showToast(`"${preset.title}" erfolgreich importiert! 🎉`);
+        recipes.unshift(newRecipe);
+        saveRecipesToStorage();
+        closeImportModal();
+        renderRecipes();
+        showToast(`"${preset.title}" erfolgreich importiert! 🎉`);
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-message').textContent = msg;
+
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-20', 'opacity-0');
+        }, 3000);
+    }
+
+    // App beim Laden starten
+    window.onload = initApp;
+    </script>
+
+    <!-- FIREBASE INTEGRATION & SYNC -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // Deine Firebase Konfiguration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCOMpewZO0VzMDOvsx6AbEJAKnFDRKUlus",
+        authDomain: "gourmetchef-24773.firebaseapp.com",
+        projectId: "gourmetchef-24773",
+        storageBucket: "gourmetchef-24773.firebasestorage.app",
+        messagingSenderId: "211718443592",
+        appId: "1:211718443592:web:53220caac60e1c494f3e7d",
+        measurementId: "G-V8G9M7JXDR"
+      };
+
+      // Firebase initialisieren
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const docRef = doc(db, "appData", "shared");
+
+      // In der Cloud speichern
+      window.saveToCloud = async function(recipesData, shoppingData) {
+        try {
+          await setDoc(docRef, {
+            recipes: recipesData,
+            shoppingList: shoppingData,
+            updatedAt: new Date().toISOString()
+          });
+        } catch (e) {
+          console.error("Fehler beim Cloud-Speichern:", e);
         }
+      };
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').textContent = msg;
-
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+      // Echtzeit-Synchronisation lauschen
+      onSnapshot(docRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          if (data.recipes) {
+            recipes = data.recipes;
+            localStorage.setItem('gourmetchef_recipes', JSON.stringify(recipes));
+            if (activeView === 'recipes') renderRecipes();
+            if (activeView === 'favorites') renderFavorites();
+            if (activeView === 'detail' && currentRecipeDetail) loadRecipeDetail(currentRecipeDetail.id);
+          }
+          if (data.shoppingList) {
+            shoppingList = data.shoppingList;
+            localStorage.setItem('gourmetchef_shopping', JSON.stringify(shoppingList));
+            updateShoppingBadge();
+            if (activeView === 'shopping') renderShoppingList();
+          }
         }
-
-        // Initialize App on Window Load
-        window.onload = initApp;
+      });
     </script>
 </body>
 </html>
