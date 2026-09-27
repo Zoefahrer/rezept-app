@@ -286,6 +286,8 @@
 
             <div class="p-6 overflow-y-auto space-y-6 flex-grow">
                 <form id="manual-recipe-form" onsubmit="saveRecipeFromForm(event)" class="space-y-4">
+                    <input type="hidden" id="form-edit-id" value="">
+                    
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-extrabold uppercase text-slateDark mb-1">Rezept-Titel *</label>
@@ -366,18 +368,6 @@
                 isFavorite: true,
                 ingredients: ['400g Penne oder Tagliatelle', '200g getrocknete Tomaten', '3 Zehen Knoblauch', '200ml Schlagsahne', '100g Blattspinat', '60g Parmesan', '2 EL Olivenöl', 'Salz und Pfeffer'],
                 instructions: ['Pasta kochen.', 'Knoblauch & Tomaten anbraten.', 'Sahne & Spinat dazugeben.', 'Parmesan einrühren & verfeinern.']
-            },
-            {
-                id: 'rec-2',
-                title: 'Saftiger Schoko-Fudge Kuchen',
-                mainCategory: 'backen',
-                subcategory: 'Kuchen',
-                time: 50,
-                servings: 8,
-                image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
-                isFavorite: true,
-                ingredients: ['200g Zartbitterschokolade', '200g Butter', '200g Zucker', '4 Eier', '150g Mehl', '50g Kakao', '1 TL Backpulver'],
-                instructions: ['Schokolade & Butter schmelzen.', 'Eier & Zucker schaumig schlagen.', 'Mehl unterheben & bei 180°C 35 Min. backen.']
             }
         ];
 
@@ -530,11 +520,15 @@
             document.getElementById('detail-image').src = recipe.image || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80';
             document.getElementById('detail-servings-count').textContent = `${currentServingsScale} Pers.`;
 
+            // AKTIONEN: Bearbeiten-Stift ist jetzt hier dabei!
             document.getElementById('detail-actions').innerHTML = `
-                <button onclick="toggleFavorite('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border text-rose-500 flex items-center justify-center shadow-sm">
+                <button onclick="editRecipe('${recipe.id}')" title="Rezept bearbeiten" class="w-10 h-10 rounded-xl bg-white border text-amber-500 hover:bg-amber-50 flex items-center justify-center shadow-sm transition-all">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button onclick="toggleFavorite('${recipe.id}')" title="Favorit umschalten" class="w-10 h-10 rounded-xl bg-white border text-rose-500 hover:bg-rose-50 flex items-center justify-center shadow-sm transition-all">
                     <i class="${recipe.isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                 </button>
-                <button onclick="deleteRecipe('${recipe.id}')" class="w-10 h-10 rounded-xl bg-white border text-rose-600 flex items-center justify-center shadow-sm">
+                <button onclick="deleteRecipe('${recipe.id}')" title="Löschen" class="w-10 h-10 rounded-xl bg-white border text-rose-600 hover:bg-rose-50 flex items-center justify-center shadow-sm transition-all">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             `;
@@ -647,8 +641,17 @@
             badge.classList.toggle('hidden', count === 0);
         }
 
-        function openImportModal() { document.getElementById('recipe-modal').classList.remove('hidden'); }
-        function closeImportModal() { document.getElementById('recipe-modal').classList.add('hidden'); }
+        function openImportModal() {
+            document.getElementById('form-edit-id').value = '';
+            document.getElementById('modal-title').textContent = 'Neues Rezept hinzufügen';
+            document.getElementById('manual-recipe-form').reset();
+            updateFormSubcategories();
+            document.getElementById('recipe-modal').classList.remove('hidden');
+        }
+
+        function closeImportModal() { 
+            document.getElementById('recipe-modal').classList.add('hidden'); 
+        }
 
         function updateFormSubcategories() {
             const mainCat = document.getElementById('form-main-category').value;
@@ -656,26 +659,60 @@
             select.innerHTML = SUBCATEGORIES[mainCat].filter(s => s !== 'Alle').map(s => `<option value="${s}">${s}</option>`).join('');
         }
 
+        function editRecipe(id) {
+            const recipe = recipes.find(r => r.id === id);
+            if (!recipe) return;
+
+            document.getElementById('form-edit-id').value = recipe.id;
+            document.getElementById('modal-title').textContent = 'Rezept bearbeiten';
+            document.getElementById('form-title').value = recipe.title || '';
+            document.getElementById('form-main-category').value = recipe.mainCategory || 'kochen';
+            
+            updateFormSubcategories();
+            document.getElementById('form-subcategory').value = recipe.subcategory || SUBCATEGORIES[recipe.mainCategory || 'kochen'][1];
+            
+            document.getElementById('form-time').value = recipe.time || 30;
+            document.getElementById('form-servings').value = recipe.servings || 4;
+            document.getElementById('form-image').value = recipe.image || '';
+            document.getElementById('form-ingredients').value = (recipe.ingredients || []).join('\n');
+            document.getElementById('form-instructions').value = (recipe.instructions || []).join('\n');
+
+            document.getElementById('recipe-modal').classList.remove('hidden');
+        }
+
         function saveRecipeFromForm(e) {
             e.preventDefault();
-            const newRecipe = {
-                id: 'rec-' + Date.now(),
+            const editId = document.getElementById('form-edit-id').value;
+
+            const recipeData = {
+                id: editId ? editId : 'rec-' + Date.now(),
                 title: document.getElementById('form-title').value.trim(),
                 mainCategory: document.getElementById('form-main-category').value,
                 subcategory: document.getElementById('form-subcategory').value,
                 time: parseInt(document.getElementById('form-time').value) || 30,
                 servings: parseInt(document.getElementById('form-servings').value) || 4,
                 image: document.getElementById('form-image').value.trim() || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=800&q=80',
-                isFavorite: false,
+                isFavorite: editId ? (recipes.find(r => r.id === editId)?.isFavorite || false) : false,
                 ingredients: document.getElementById('form-ingredients').value.split('\n').filter(Boolean),
                 instructions: document.getElementById('form-instructions').value.split('\n').filter(Boolean)
             };
 
-            recipes.unshift(newRecipe);
+            if (editId) {
+                const index = recipes.findIndex(r => r.id === editId);
+                if (index !== -1) recipes[index] = recipeData;
+            } else {
+                recipes.unshift(recipeData);
+            }
+
             saveRecipesToStorage();
             closeImportModal();
             renderRecipes();
-            showToast('Neues Rezept gespeichert! 🎉');
+
+            if (activeView === 'detail' && currentRecipeDetail && currentRecipeDetail.id === recipeData.id) {
+                loadRecipeDetail(recipeData.id);
+            }
+
+            showToast(editId ? 'Rezept aktualisiert! ✏️' : 'Neues Rezept gespeichert! 🎉');
         }
 
         function deleteRecipe(id) {
